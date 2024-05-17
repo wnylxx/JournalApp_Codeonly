@@ -16,6 +16,7 @@
 		1814C69D2BF78774008054D3 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C69C2BF78774008054D3 /* AddJournalViewController.swift */; };
 		1814C6A12BF791F8008054D3 /* JournalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6A02BF791F8008054D3 /* JournalDetailViewController.swift */; };
 		1814C6A32BF7936A008054D3 /* JournalListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6A22BF7936A008054D3 /* JournalListTableViewCell.swift */; };
+		1814C6A62BF79E6F008054D3 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6A52BF79E6F008054D3 /* JournalEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		1814C69C2BF78774008054D3 /* AddJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
 		1814C6A02BF791F8008054D3 /* JournalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailViewController.swift; sourceTree = "<group>"; };
 		1814C6A22BF7936A008054D3 /* JournalListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListTableViewCell.swift; sourceTree = "<group>"; };
+		1814C6A52BF79E6F008054D3 /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				1814C68D2BF778BE008054D3 /* Assets.xcassets */,
 				1814C68F2BF778BE008054D3 /* LaunchScreen.storyboard */,
 				1814C6922BF778BE008054D3 /* Info.plist */,
+				1814C6A52BF79E6F008054D3 /* JournalEntry.swift */,
 			);
 			path = Journal_Codeonly;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			files = (
 				1814C6892BF778BC008054D3 /* JournalListViewController.swift in Sources */,
 				1814C6A12BF791F8008054D3 /* JournalDetailViewController.swift in Sources */,
+				1814C6A62BF79E6F008054D3 /* JournalEntry.swift in Sources */,
 				1814C6A32BF7936A008054D3 /* JournalListTableViewCell.swift in Sources */,
 				1814C6852BF778BC008054D3 /* AppDelegate.swift in Sources */,
 				1814C69B2BF77E52008054D3 /* MapViewController.swift in Sources */,
