@@ -7,8 +7,7 @@
 
 import UIKit
 
-class JournalListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class JournalListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddAddJournalViewControllerDelegate {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -71,7 +70,13 @@ class JournalListViewController: UIViewController, UITableViewDelegate, UITableV
     @objc private func addJournal() {
         let addJournalViewController = AddJournalViewController()
         let naviController = UINavigationController(rootViewController: addJournalViewController)
+        addJournalViewController.delegate = self
         present(naviController, animated: true)
+    }
+    
+    public func saveJournalEntry(_ journalEntry: JournalEntry) {
+        sampleJournalEntryData.journalEntries.append(journalEntry)
+        tableView.reloadData()
     }
 
 
