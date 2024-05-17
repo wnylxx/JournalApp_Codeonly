@@ -13,6 +13,7 @@
 		1814C68E2BF778BE008054D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1814C68D2BF778BE008054D3 /* Assets.xcassets */; };
 		1814C6912BF778BE008054D3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1814C6902BF778BE008054D3 /* Base */; };
 		1814C69B2BF77E52008054D3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C69A2BF77E52008054D3 /* MapViewController.swift */; };
+		1814C69D2BF78774008054D3 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C69C2BF78774008054D3 /* AddJournalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1814C6902BF778BE008054D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1814C6922BF778BE008054D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1814C69A2BF77E52008054D3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		1814C69C2BF78774008054D3 /* AddJournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				1814C6842BF778BC008054D3 /* AppDelegate.swift */,
 				1814C6862BF778BC008054D3 /* SceneDelegate.swift */,
+				1814C69C2BF78774008054D3 /* AddJournalViewController.swift */,
 				1814C6882BF778BC008054D3 /* JournalListViewController.swift */,
 				1814C69A2BF77E52008054D3 /* MapViewController.swift */,
 				1814C68D2BF778BE008054D3 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 				1814C6852BF778BC008054D3 /* AppDelegate.swift in Sources */,
 				1814C69B2BF77E52008054D3 /* MapViewController.swift in Sources */,
 				1814C6872BF778BC008054D3 /* SceneDelegate.swift in Sources */,
+				1814C69D2BF78774008054D3 /* AddJournalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +292,6 @@
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -315,7 +318,6 @@
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

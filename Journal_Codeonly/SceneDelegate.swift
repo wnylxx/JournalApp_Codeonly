@@ -8,17 +8,32 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
-
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-                self.window = UIWindow(windowScene: windowScene)
-                self.window?.rootViewController = JournalListViewController()
-                self.window?.makeKeyAndVisible()
+        self.window = UIWindow(windowScene: windowScene)
+
+        let journalListViewController = JournalListViewController()
+        let firstNavigationController = UINavigationController(rootViewController: journalListViewController)
+        firstNavigationController.tabBarItem = UITabBarItem(title: "Journal",
+                                                            image: UIImage(systemName: "person.fill"),
+                                                            tag: 0)
+
+        let mapViewController = MapViewController()
+        let secondNavigationController = UINavigationController(rootViewController: mapViewController)
+        secondNavigationController.tabBarItem = UITabBarItem(title: "Map",
+                                                            image: UIImage(systemName: "map"),
+                                                            tag: 1)
+
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [firstNavigationController, secondNavigationController]
+    
+  
+        self.window?.rootViewController = tabBarController
+        self.window?.makeKeyAndVisible()
     }
 
 
