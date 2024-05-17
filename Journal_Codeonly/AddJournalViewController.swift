@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol AddAddJournalViewControllerDelegate: NSObject {
+    func saveJournalEntry(_ journalEntry: JournalEntry)
+}
+
 class AddJournalViewController: UIViewController {
+    weak var delegate: AddAddJournalViewControllerDelegate?
     
     private lazy var mainContainer: UIStackView = {
         let stackView = UIStackView()
@@ -113,7 +118,13 @@ class AddJournalViewController: UIViewController {
     }
     
     @objc func save() {
-        
+        guard let title = titleTextField.text, !title.isEmpty,
+              let body = bodyTextView.text, !body.isEmpty else {
+            return
+        }
+        let journalEntry = JournalEntry(rating: 5, title: title, body: body)!
+        delegate?.saveJournalEntry(journalEntry)
+        dismiss(animated: true)
     }
     
     @objc func cancel() {
