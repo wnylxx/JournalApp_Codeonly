@@ -41,8 +41,8 @@ class JournalListTableViewCell: UITableViewCell {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let safeArea = safeAreaLayoutGuide
-        let marginGuide = layoutMarginsGuide
+        let safeArea = self.safeAreaLayoutGuide
+        let marginGuide = self.layoutMarginsGuide
         
         NSLayoutConstraint.activate([
             thumbnailView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -52,11 +52,11 @@ class JournalListTableViewCell: UITableViewCell {
             
             dateLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: 8),
-            dateLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor),
+            dateLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -8),
             
             titleLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: thumbnailView.trailingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor)
+            titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -8)
         ])
         
     }
