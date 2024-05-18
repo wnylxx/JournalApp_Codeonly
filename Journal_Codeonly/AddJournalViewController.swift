@@ -12,12 +12,18 @@ protocol AddAddJournalViewControllerDelegate: NSObject {
     func saveJournalEntry(_ journalEntry: JournalEntry)
 }
 
-class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
+class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate{
     weak var delegate: AddAddJournalViewControllerDelegate?
     
     final let LABEL_TAG = 90
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
+    
+    var locationSwitchIson = false {
+        didSet {
+            updateSaveButtonState()
+        }
+    }
     
     private lazy var mainContainer: UIStackView = {
         let stackView = UIStackView()
@@ -57,12 +63,14 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter journal Title"
+        textField.addTarget(self, action: #selector(textChange(textField:)), for: .editingChanged)
         return textField
     }()
     
     private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Journal Body"
+        textView.delegate = self
         return textView
     }()
     
@@ -84,6 +92,8 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(save))
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancel))
@@ -129,6 +139,35 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // MARK: Methods
+    func updateSaveButtonState() {
+        if locationSwitchIson {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty,
+                  let _ = currentLocation else {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                return
+            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty else {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                return
+            }
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        updateSaveButtonState()
+    }
+    
+    @objc func textChange(textField: UITextField) {
+        updateSaveButtonState()
+    }
+    
+    
     @objc func save() {
         guard let title = titleTextField.text, !title.isEmpty,
               let body = bodyTextView.text, !body.isEmpty else {
@@ -149,6 +188,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func valueChanged(sender: UISwitch) {
+        locationSwitchIson = sender.isOn
         if sender.isOn {
             if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
                 label.text = "Getting Location..."
@@ -169,7 +209,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
             if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
                 label.text = "Done"
             }
-            // Update button State
+            updateSaveButtonState()
         }
     }
     
