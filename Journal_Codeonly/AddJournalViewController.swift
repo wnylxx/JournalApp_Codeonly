@@ -6,13 +6,24 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol AddAddJournalViewControllerDelegate: NSObject {
     func saveJournalEntry(_ journalEntry: JournalEntry)
 }
 
-class AddJournalViewController: UIViewController {
+class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate{
     weak var delegate: AddAddJournalViewControllerDelegate?
+    
+    final let LABEL_TAG = 90
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    
+    var locationSwitchIson = false {
+        didSet {
+            updateSaveButtonState()
+        }
+    }
     
     private lazy var mainContainer: UIStackView = {
         let stackView = UIStackView()
@@ -37,8 +48,12 @@ class AddJournalViewController: UIViewController {
         stackView.distribution = .fill
         stackView.spacing = 8
         let switchComponent = UISwitch()
+        switchComponent.isOn = false
+        switchComponent.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
+        
         let labelComponent = UILabel()
-        labelComponent.text = "Switch Label"
+        labelComponent.text = "Get Location"
+        labelComponent.tag = LABEL_TAG
         
         stackView.addArrangedSubview(switchComponent)
         stackView.addArrangedSubview(labelComponent)
@@ -48,12 +63,14 @@ class AddJournalViewController: UIViewController {
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter journal Title"
+        textField.addTarget(self, action: #selector(textChange(textField:)), for: .editingChanged)
         return textField
     }()
     
     private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Journal Body"
+        textView.delegate = self
         return textView
     }()
     
@@ -63,6 +80,11 @@ class AddJournalViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var saveButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+    }()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +92,9 @@ class AddJournalViewController: UIViewController {
         navigationItem.title = "New Entry"
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                            target: self,
-                                                            action: #selector(save))
+        navigationItem.rightBarButtonItem = saveButton
+        saveButton.isEnabled = false
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancel))
@@ -112,17 +134,52 @@ class AddJournalViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
-        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
         
         
     }
+    
+    // MARK: Methods
+    func updateSaveButtonState() {
+        if locationSwitchIson {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty,
+                  let _ = currentLocation else {
+                saveButton.isEnabled = false
+                return
+            }
+            saveButton.isEnabled = true
+        } else {
+            guard let title = titleTextField.text, !title.isEmpty,
+                  let body = bodyTextView.text, !body.isEmpty else {
+                saveButton.isEnabled = false
+                return
+            }
+            saveButton.isEnabled = true
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        updateSaveButtonState()
+    }
+    
+    @objc func textChange(textField: UITextField) {
+        updateSaveButtonState()
+    }
+    
     
     @objc func save() {
         guard let title = titleTextField.text, !title.isEmpty,
               let body = bodyTextView.text, !body.isEmpty else {
             return
         }
-        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling"))!
+        
+        let lat = currentLocation?.coordinate.latitude
+        let long = currentLocation?.coordinate.longitude
+        
+        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling"),
+                                        latitude: lat, longitude: long)!
         delegate?.saveJournalEntry(journalEntry)
         dismiss(animated: true)
     }
@@ -131,5 +188,34 @@ class AddJournalViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @objc func valueChanged(sender: UISwitch) {
+        locationSwitchIson = sender.isOn
+        if sender.isOn {
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Getting Location..."
+            }
+            locationManager.requestLocation()
+        } else {
+            currentLocation = nil
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Get Location"
+            }
+        }
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let myCurrentLocation = locations.first {
+            currentLocation = myCurrentLocation
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Done"
+            }
+            updateSaveButtonState()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
 
 }
