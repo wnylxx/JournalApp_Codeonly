@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class JournalDetailViewController: UITableViewController {
     let journalEntry: JournalEntry
     
@@ -68,6 +70,7 @@ class JournalDetailViewController: UITableViewController {
         
         navigationItem.title = "Detial"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         
     }
 
@@ -85,10 +88,11 @@ class JournalDetailViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
         
         switch indexPath.row {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.contentView.addSubview(dateLabel)
             dateLabel.text = journalEntry.date.formatted(.dateTime.year().month().day())
             
@@ -98,7 +102,12 @@ class JournalDetailViewController: UITableViewController {
                 dateLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
                 dateLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor)
             ])
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+            return cell
         case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.contentView.addSubview(titleLabel)
             titleLabel.text = journalEntry.entryTitle
             
@@ -108,7 +117,9 @@ class JournalDetailViewController: UITableViewController {
                 titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
                 titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor)
             ])
+            return cell
         case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.contentView.addSubview(bodyTextView)
             bodyTextView.text = journalEntry.entryBody
             
@@ -119,7 +130,9 @@ class JournalDetailViewController: UITableViewController {
                 bodyTextView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
                 bodyTextView.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor)
             ])
+            return cell
         case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.contentView.addSubview(imageView)
             imageView.image = journalEntry.photo
             
@@ -129,7 +142,9 @@ class JournalDetailViewController: UITableViewController {
                 imageView.widthAnchor.constraint(equalToConstant: 300),
                 imageView.heightAnchor.constraint(equalToConstant: 300)
             ])
+            return cell
         case 5:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.contentView.addSubview(mapView)
             NSLayoutConstraint.activate([
                 mapView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
@@ -137,20 +152,18 @@ class JournalDetailViewController: UITableViewController {
                 mapView.widthAnchor.constraint(equalToConstant: 300),
                 mapView.heightAnchor.constraint(equalToConstant: 300)
             ])
+            return cell
         default :
-            print("others")
+            return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         }
-        // Configure the cell...
-
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0: return 60
-        case 2: return 150
-        case 3: return 316
+        case 1: return 60
+        case 3: return 150
         case 4: return 316
+        case 5: return 316
         default: return 44.5
         }
     }
