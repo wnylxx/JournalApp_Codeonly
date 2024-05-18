@@ -33,6 +33,4 @@ class CustomTableViewCell: UITableViewCell {
             stackView.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-    
-
 }
