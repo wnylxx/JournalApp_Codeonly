@@ -80,6 +80,9 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
         return imageView
     }()
     
+    private lazy var saveButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+    }()
     
     
 
@@ -89,10 +92,8 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
         navigationItem.title = "New Entry"
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                            target: self,
-                                                            action: #selector(save))
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem = saveButton
+        saveButton.isEnabled = false
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
@@ -145,17 +146,17 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
             guard let title = titleTextField.text, !title.isEmpty,
                   let body = bodyTextView.text, !body.isEmpty,
                   let _ = currentLocation else {
-                navigationItem.rightBarButtonItem?.isEnabled = false
+                saveButton.isEnabled = false
                 return
             }
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            saveButton.isEnabled = true
         } else {
             guard let title = titleTextField.text, !title.isEmpty,
                   let body = bodyTextView.text, !body.isEmpty else {
-                navigationItem.rightBarButtonItem?.isEnabled = false
+                saveButton.isEnabled = false
                 return
             }
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            saveButton.isEnabled = true
         }
     }
     
