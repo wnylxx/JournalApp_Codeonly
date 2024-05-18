@@ -69,14 +69,13 @@
 				1814C6842BF778BC008054D3 /* AppDelegate.swift */,
 				1814C6862BF778BC008054D3 /* SceneDelegate.swift */,
 				1814C6A42BF79416008054D3 /* JournalList Screen */,
+				1814C6A92BF8F5BA008054D3 /* JournalDetail Screen */,
 				1814C69C2BF78774008054D3 /* AddJournalViewController.swift */,
-				1814C6A02BF791F8008054D3 /* JournalDetailViewController.swift */,
 				1814C69A2BF77E52008054D3 /* MapViewController.swift */,
 				1814C6A52BF79E6F008054D3 /* JournalEntry.swift */,
 				1814C68D2BF778BE008054D3 /* Assets.xcassets */,
 				1814C68F2BF778BE008054D3 /* LaunchScreen.storyboard */,
 				1814C6922BF778BE008054D3 /* Info.plist */,
-				1814C6A72BF8956E008054D3 /* CustomTableViewCell.swift */,
 			);
 			path = Journal_Codeonly;
 			sourceTree = "<group>";
@@ -88,6 +87,15 @@
 				1814C6A22BF7936A008054D3 /* JournalListTableViewCell.swift */,
 			);
 			path = "JournalList Screen";
+			sourceTree = "<group>";
+		};
+		1814C6A92BF8F5BA008054D3 /* JournalDetail Screen */ = {
+			isa = PBXGroup;
+			children = (
+				1814C6A02BF791F8008054D3 /* JournalDetailViewController.swift */,
+				1814C6A72BF8956E008054D3 /* CustomTableViewCell.swift */,
+			);
+			path = "JournalDetail Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +322,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 항상 받아옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 앱 사용시 받아옵니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -340,6 +350,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 항상 받아옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 앱 사용시 받아옵니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

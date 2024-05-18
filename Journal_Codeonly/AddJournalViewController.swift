@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol AddAddJournalViewControllerDelegate: NSObject {
     func saveJournalEntry(_ journalEntry: JournalEntry)
 }
 
-class AddJournalViewController: UIViewController {
+class AddJournalViewController: UIViewController, CLLocationManagerDelegate {
     weak var delegate: AddAddJournalViewControllerDelegate?
+    
+    final let LABEL_TAG = 90
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
     
     private lazy var mainContainer: UIStackView = {
         let stackView = UIStackView()
@@ -37,8 +42,12 @@ class AddJournalViewController: UIViewController {
         stackView.distribution = .fill
         stackView.spacing = 8
         let switchComponent = UISwitch()
+        switchComponent.isOn = false
+        switchComponent.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
+        
         let labelComponent = UILabel()
-        labelComponent.text = "Switch Label"
+        labelComponent.text = "Get Location"
+        labelComponent.tag = LABEL_TAG
         
         stackView.addArrangedSubview(switchComponent)
         stackView.addArrangedSubview(labelComponent)
@@ -62,6 +71,8 @@ class AddJournalViewController: UIViewController {
         imageView.image = UIImage(systemName: "face.smiling")
         return imageView
     }()
+    
+    
     
 
     override func viewDidLoad() {
@@ -112,7 +123,8 @@ class AddJournalViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
-        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
         
         
     }
@@ -122,7 +134,12 @@ class AddJournalViewController: UIViewController {
               let body = bodyTextView.text, !body.isEmpty else {
             return
         }
-        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling"))!
+        
+        let lat = currentLocation?.coordinate.latitude
+        let long = currentLocation?.coordinate.longitude
+        
+        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling"),
+                                        latitude: lat, longitude: long)!
         delegate?.saveJournalEntry(journalEntry)
         dismiss(animated: true)
     }
@@ -131,5 +148,33 @@ class AddJournalViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @objc func valueChanged(sender: UISwitch) {
+        if sender.isOn {
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Getting Location..."
+            }
+            locationManager.requestLocation()
+        } else {
+            currentLocation = nil
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Get Location"
+            }
+        }
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let myCurrentLocation = locations.first {
+            currentLocation = myCurrentLocation
+            if let label = toggleView.viewWithTag(LABEL_TAG) as? UILabel {
+                label.text = "Done"
+            }
+            // Update button State
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
 
 }
