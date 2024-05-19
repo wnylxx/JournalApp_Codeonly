@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import MapKit
 
 
 class JournalDetailViewController: UITableViewController {
@@ -51,8 +51,27 @@ class JournalDetailViewController: UITableViewController {
         imageView.image = UIImage(systemName: "map")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
         
+        guard let latitude = journalEntry.latitude,
+              let longitude = journalEntry.longitude else {
+            return imageView
+        }
+        let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let region = MKCoordinateRegion(center: location,
+                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let options = MKMapSnapshotter.Options()
+        options.region = region
+        options.size = CGSize(width: 300, height: 300)
+        
+        let shotter = MKMapSnapshotter(options: options)
+        shotter.start { result, error in
+            guard let snapshot = result  else {
+                print("Snapshot error: \(error?.localizedDescription ?? "")")
+                return
+            }
+            imageView.image = snapshot.image
+        }
+        return imageView
     }()
     
     
@@ -63,6 +82,8 @@ class JournalDetailViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
     
     override func viewDidLoad() {
