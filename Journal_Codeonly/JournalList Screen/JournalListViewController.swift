@@ -14,11 +14,9 @@ class JournalListViewController: UIViewController, UITableViewDelegate, UITableV
         return tableView
     }()
     
-    var sampleJournalEntryData = SampleJournalEntryData()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        sampleJournalEntryData.createSampleJournalEntryData()
+        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -46,21 +44,28 @@ class JournalListViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sampleJournalEntryData.journalEntries.count
+        SharedData.shared.numberOfJournalEntries()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "journalCell", for: indexPath) as! JournalListTableViewCell
-        let journalEntry = sampleJournalEntryData.journalEntries[indexPath.row]
+        let journalEntry = SharedData.shared.getJournalEntry(index: indexPath.row)
         cell.configureCell(journalEntry: journalEntry)
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let jourNalEntry = sampleJournalEntryData.journalEntries[indexPath.row]
+        let jourNalEntry = SharedData.shared.getJournalEntry(index: indexPath.row)
         let journalDetailViewController = JournalDetailViewController(journalEntry: jourNalEntry)
         show(journalDetailViewController, sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            SharedData.shared.removeJournalEntry(index: indexPath.row)
+            tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,9 +79,10 @@ class JournalListViewController: UIViewController, UITableViewDelegate, UITableV
         addJournalViewController.delegate = self
         present(naviController, animated: true)
     }
+
     
     public func saveJournalEntry(_ journalEntry: JournalEntry) {
-        sampleJournalEntryData.journalEntries.append(journalEntry)
+        SharedData.shared.addJournalEntry(newJournalEntry: journalEntry)
         tableView.reloadData()
     }
 
