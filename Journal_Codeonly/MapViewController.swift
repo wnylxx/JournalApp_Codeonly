@@ -84,4 +84,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return nil
         }
     }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let journalEntry = view.annotation as? JournalEntry {
+            let journalDetailViewController = JournalDetailViewController(journalEntry: journalEntry)
+            show(journalDetailViewController, sender: nil)
+        }
+    }
 }
