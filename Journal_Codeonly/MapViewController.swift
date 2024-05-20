@@ -45,6 +45,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             mapView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        SharedData.shared.loadJournalEntriesData()
+    }
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)

@@ -40,4 +40,30 @@ class SharedData {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+    func loadJournalEntriesData() {
+        let fileURL = getDocumentDirectory().appendingPathComponent("journalEntriesData.json")
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let journalEntriesData = try JSONDecoder().decode([JournalEntry].self, from: data)
+            journalEntries = journalEntriesData
+                
+        } catch {
+            print("Failed to read Json data: \(error.localizedDescription)")
+        }
+    }
+    
+    func saveJournalEntriesData() {
+        let pathDirectory = getDocumentDirectory()
+        try? FileManager.default.createDirectory(at: pathDirectory, withIntermediateDirectories: true)
+        let fileURL = pathDirectory.appendingPathComponent("journalEntriesData.json")
+        let json = try? JSONEncoder().encode(journalEntries)
+        do {
+            try json!.write(to: fileURL)
+        } catch {
+            print("Faild to write Json data: \(error.localizedDescription)")
+        }
+    }
+    
+    
 }
