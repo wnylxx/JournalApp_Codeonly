@@ -178,7 +178,7 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
         let lat = currentLocation?.coordinate.latitude
         let long = currentLocation?.coordinate.longitude
         
-        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling"),
+        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling")?.withRenderingMode(.alwaysOriginal),
                                         latitude: lat, longitude: long)!
         delegate?.saveJournalEntry(journalEntry)
         dismiss(animated: true)
