@@ -330,8 +330,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "이 앱은 일기 항목 생성을 위해 사용자의 카메라를 사용합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 항상 받아옵니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 앱 사용시 받아옵니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이 앱은 일기 항목 생성을 위해 포토 라이브러리를 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -358,8 +360,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Journal_Codeonly/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "이 앱은 일기 항목 생성을 위해 사용자의 카메라를 사용합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 항상 받아옵니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 앱 사용시 받아옵니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "이 앱은 일기 항목 생성을 위해 포토 라이브러리를 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
