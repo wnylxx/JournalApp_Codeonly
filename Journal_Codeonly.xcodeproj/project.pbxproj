@@ -19,6 +19,7 @@
 		1814C6A62BF79E6F008054D3 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6A52BF79E6F008054D3 /* JournalEntry.swift */; };
 		1814C6A82BF8956E008054D3 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6A72BF8956E008054D3 /* CustomTableViewCell.swift */; };
 		1814C6AB2BFA4699008054D3 /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C6AA2BFA4699008054D3 /* SharedData.swift */; };
+		1814C78D2BFDC710008054D3 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814C78C2BFDC710008054D3 /* RatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1814C6A52BF79E6F008054D3 /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		1814C6A72BF8956E008054D3 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		1814C6AA2BFA4699008054D3 /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
+		1814C78C2BFDC710008054D3 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		1814C6782BF778BC008054D3 = {
 			isa = PBXGroup;
 			children = (
+				1814C78C2BFDC710008054D3 /* RatingView.swift */,
 				1814C6832BF778BC008054D3 /* Journal_Codeonly */,
 				1814C6822BF778BC008054D3 /* Products */,
 			);
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1814C78D2BFDC710008054D3 /* RatingView.swift in Sources */,
 				1814C6A82BF8956E008054D3 /* CustomTableViewCell.swift in Sources */,
 				1814C6892BF778BC008054D3 /* JournalListViewController.swift in Sources */,
 				1814C6A12BF791F8008054D3 /* JournalDetailViewController.swift in Sources */,
