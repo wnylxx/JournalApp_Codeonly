@@ -23,7 +23,13 @@ class RatingView: UIStackView {
         setupButtons()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupButtons()
+    }
+    
     func setupButtons() {
+        self.axis = .horizontal
         for button in ratingButtons {
             removeArrangedSubview(button)
             button.removeFromSuperview()

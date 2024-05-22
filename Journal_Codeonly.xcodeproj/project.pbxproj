@@ -54,7 +54,6 @@
 		1814C6782BF778BC008054D3 = {
 			isa = PBXGroup;
 			children = (
-				1814C78C2BFDC710008054D3 /* RatingView.swift */,
 				1814C6832BF778BC008054D3 /* Journal_Codeonly */,
 				1814C6822BF778BC008054D3 /* Products */,
 			);
@@ -79,6 +78,7 @@
 				1814C69A2BF77E52008054D3 /* MapViewController.swift */,
 				1814C6A52BF79E6F008054D3 /* JournalEntry.swift */,
 				1814C6AA2BFA4699008054D3 /* SharedData.swift */,
+				1814C78C2BFDC710008054D3 /* RatingView.swift */,
 				1814C68D2BF778BE008054D3 /* Assets.xcassets */,
 				1814C68F2BF778BE008054D3 /* LaunchScreen.storyboard */,
 				1814C6922BF778BE008054D3 /* Info.plist */,
