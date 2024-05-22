@@ -12,7 +12,7 @@ protocol AddAddJournalViewControllerDelegate: NSObject {
     func saveJournalEntry(_ journalEntry: JournalEntry)
 }
 
-class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate{
+class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     weak var delegate: AddAddJournalViewControllerDelegate?
     
     final let LABEL_TAG = 90
@@ -34,11 +34,10 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
         return stackView
     }()
     
-    private lazy var ratingView: UIStackView = {
-        let stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 252, height: 44))
-        stackView.axis = .horizontal
-        stackView.backgroundColor = .systemCyan
-        return stackView
+    private lazy var ratingView: RatingView = {
+        let ratingView = RatingView(frame: CGRect(x: 0, y: 0, width: 252, height: 44))
+        ratingView.distribution = .fillEqually
+        return ratingView
     }()
     
     private lazy var toggleView: UIStackView = {
@@ -77,6 +76,9 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "face.smiling")
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
     }()
     
@@ -164,6 +166,20 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
         updateSaveButtonState()
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image: \(info)")
+        }
+        let smallerImage = selectedImage.preparingThumbnail(of: CGSize(width: 300, height: 300))
+        imageView.image = smallerImage
+        dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+    
+    
     @objc func textChange(textField: UITextField) {
         updateSaveButtonState()
     }
@@ -175,10 +191,11 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
             return
         }
         
+        let rating = ratingView.rating
         let lat = currentLocation?.coordinate.latitude
         let long = currentLocation?.coordinate.longitude
         
-        let journalEntry = JournalEntry(rating: 5, title: title, body: body, photo: UIImage(systemName: "face.smiling")?.withRenderingMode(.alwaysOriginal),
+        let journalEntry = JournalEntry(rating: rating, title: title, body: body, photo: imageView.image,
                                         latitude: lat, longitude: long)!
         delegate?.saveJournalEntry(journalEntry)
         dismiss(animated: true)
@@ -216,6 +233,13 @@ class AddJournalViewController: UIViewController, CLLocationManagerDelegate, UIT
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
+    }
+    
+    @objc func imageTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true)
     }
 
 }

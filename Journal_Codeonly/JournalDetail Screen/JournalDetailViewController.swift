@@ -20,6 +20,14 @@ class JournalDetailViewController: UITableViewController {
         return label
     }()
     
+    private lazy var ratingView: RatingView = {
+        let ratingView = RatingView(frame: CGRect(x: 0, y: 0, width: 252, height: 44))
+        ratingView.distribution = .equalSpacing
+        ratingView.isUserInteractionEnabled = false
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        return ratingView
+    }()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
@@ -91,7 +99,6 @@ class JournalDetailViewController: UITableViewController {
         
         navigationItem.title = "Detial"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         
     }
 
@@ -125,7 +132,14 @@ class JournalDetailViewController: UITableViewController {
             ])
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            ratingView.rating = journalEntry.rating
+            cell.contentView.addSubview(ratingView)
+            
+            ratingView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor).isActive = true
+            ratingView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor).isActive = true
+            ratingView.widthAnchor.constraint(equalToConstant: 252).isActive = true
+            ratingView.heightAnchor.constraint(equalToConstant: 44).isActive = true
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
